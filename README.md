@@ -1,5 +1,5 @@
 # kbot
-Devops applications from scratch
+Devops application from scratch
 
 ## Golang Telegram bot
 # Commands
