@@ -1,8 +1,31 @@
 APP := $(shell basename $(shell git remote get-url origin))
 REGISTRY := kharkovsailing
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
-TARGETOS=linux #linux=linux/amd64, arm=linux/arm64, macos, darwin, windows
-TARGETARCH=arm64 # amd64 arm64
+.DEFAULT_GOAL := build
+
+TARGETOS=
+TARGETARCH=
+
+build_linux: TARGETOS=linux
+build_linux: TARGETARCH=arm64
+build_linux: build
+
+linux: TARGETOS=linux
+linux: TARGETARCH=arm64
+linux: build
+
+windows: TARGETOS=windows
+windows: TARGETARCH=amd64
+windows: build
+
+macOS: TARGETOS=darwin
+macOS: TARGETARCH=amd64
+macOS: build_macOS
+
+macOSARM: TARGETOS=darwin
+macOSARM: TARGETARCH=arm64
+macOSARM: build_macOSARM
+
 
 format:
 	gofmt -s -w ./
